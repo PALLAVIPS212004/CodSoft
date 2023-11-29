@@ -1,0 +1,95 @@
+from tkinter import *
+import json
+
+todo=Tk()
+
+
+task=''
+date=''
+time=''
+
+def add_date():
+    global date
+    date=entry.get()
+    entry.delete(0,END)
+
+
+def add_time():
+    global time
+    time=entry.get()
+    entry.delete(0,END)
+
+def sub():
+    global task
+    global date
+    global time
+    det=[task,date,time]
+    listbox.insert(END,det)
+
+
+
+def add_task():
+    global task
+    task=entry.get()
+    entry.delete(0,END)
+    
+
+def delete():
+    items=listbox.curselection()
+
+    for i in items[::-1]:
+        listbox.delete(i)
+
+
+def save():
+    global task
+    global date
+    global time
+    det=[task,date,time]
+    file=open('D:\\RECORD.txt','a')
+    file.write(json.dumps(det))
+    file,close()
+    
+
+todo.title('TO-DO LIST APPLICATION')
+todo.geometry('400x500')
+
+L1=Label(todo,text='WELCOME TO TO-LIST APPLICATION').place(x=0,y=0)
+
+L2=Label(todo,text='enter the tasks here').place(x=40,y=30)
+
+value=StringVar()
+entry=Entry(todo,textvariable=value,font=('Arial',21))
+entry.place(x=40,y=70)
+
+
+listbox=Listbox(todo,width=40,height=10)
+listbox.place(x=40,y=160)
+
+
+
+badd=Button(todo,text='ADD TASK',width=10,height=2,command=add_task).place(x=40,y=110)
+
+
+bdel=Button(todo,text="DELETE TASK",width=10,height=2,command=delete).place(x=300,y=363)
+
+bsub=Button(todo,text="SUBMIT TASK",width=10,height=2,command=sub).place(x=60,y=363)
+
+
+bdate=Button(todo,text="ADD DATE",width=10,height=2,command=add_date).place(x=150,y=110)
+
+btime=Button(todo,text="ADD TIME",width=10,height=2,command=add_time).place(x=250,y=110)
+
+
+bsave=Button(todo,text="SAVE",width=10,height=2,command=save).place(x=183,y=360)
+
+
+
+todo.configure(bg='yellow')
+
+todo.mainloop()
+
+
+
+
+
